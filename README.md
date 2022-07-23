@@ -1,1 +1,1 @@
-# financial-market-trading-dashboard
+# Financial Market Trading Dashboard
