@@ -1,4 +1,10 @@
 import streamlit as st
+import Tickers
+
+#
+# Call all the init functions
+#
+Tickers.readAllPriceCsv()
 
 ##st.markdown("# Trading Dashboard")
 ##st.sidebar.markdown("# Trading Dashboard")
