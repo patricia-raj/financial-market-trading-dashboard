@@ -1,7 +1,7 @@
+import pandas as pd
+
 index_etf = []
-
 sector_etf = []
-
 nasdaq_100 = ["AAPL",
               "MSFT",
               "GOOG",
@@ -104,3 +104,12 @@ nasdaq_100 = ["AAPL",
               "SPLK",
               "OKTA",
               "DOCU"]
+
+
+tickerPriceInfo = {}
+
+def readAllPriceCsv():
+    for ticker in nasdaq_100:
+        
+        df = pd.read_csv('Resources/NASDQ-100-Tickers/' + ticker + '.csv')
+        tickerPriceInfo[ticker] = df
