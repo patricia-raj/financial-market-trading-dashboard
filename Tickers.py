@@ -105,11 +105,23 @@ nasdaq_100 = ["AAPL",
               "OKTA",
               "DOCU"]
 
+market_caps = ["Mega cap", "Large cap", "Mid cap"]
+
+sectors = ["Energy",
+           "Materials",
+           "Industrials",
+           "Consumer Dis",
+           "Consumer Stap",
+           "Health Care",
+           "Financials",
+           "Information Tech",
+           "Telec Services",
+           "Utilities",
+           "Real Estate"]
 
 tickerPriceInfo = {}
 
 def readAllPriceCsv():
     for ticker in nasdaq_100:
-        
         df = pd.read_csv('Resources/NASDQ-100-Tickers/' + ticker + '.csv')
         tickerPriceInfo[ticker] = df
