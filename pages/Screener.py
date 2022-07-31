@@ -4,6 +4,9 @@ import pandas as pd
 
 pd.set_option('display.precision', 2)
 
+def setBold(cellValue):
+    return "font-weight: bold"
+
 def setCellBgColor(cellValue):
     bgRed = 'background-color: darkorange;'
     bgGreen = 'background-color: lightgreen;'
@@ -28,6 +31,10 @@ def generateDf(columnList, rowList):
 #
 st.markdown("# Stock screener (Nasdaq 100)❄️")
 st.sidebar.markdown("# Screener categories ❄️")
+
+market_cap = st.sidebar.selectbox("Select the market cap", Tickers.market_caps)
+sector     = st.sidebar.selectbox("Select the sector", Tickers.sectors)
+
 st.sidebar.markdown("# Display Options ❄️")
 
 #
@@ -50,16 +57,16 @@ columnList = ['Ticker', 'Close', 'Week%', 'Month%', 'YTD%', 'Year%']
 rowList = []
 for ticker in Tickers.nasdaq_100:
     weekly_pct_change = (Tickers.tickerPriceInfo[ticker].iloc[-1]['Close'] -
-                          Tickers.tickerPriceInfo[ticker].iloc[-6]['Close']) * 100 / Tickers.tickerPriceInfo[ticker].iloc[-1]['Close']
+                          Tickers.tickerPriceInfo[ticker].iloc[-6]['Close']) * 100 / Tickers.tickerPriceInfo[ticker].iloc[-6]['Close']
 
     monthly_pct_change = (Tickers.tickerPriceInfo[ticker].iloc[-1]['Close'] -
-                          Tickers.tickerPriceInfo[ticker].iloc[-22]['Close']) * 100 / Tickers.tickerPriceInfo[ticker].iloc[-1]['Close']
+                          Tickers.tickerPriceInfo[ticker].iloc[-22]['Close']) * 100 / Tickers.tickerPriceInfo[ticker].iloc[-22]['Close']
 
     ytd_pct_change = (Tickers.tickerPriceInfo[ticker].iloc[-1]['Close'] -
-                         Tickers.tickerPriceInfo[ticker].iloc[-138]['Close']) * 100 / Tickers.tickerPriceInfo[ticker].iloc[-1]['Close']
+                         Tickers.tickerPriceInfo[ticker].iloc[-138]['Close']) * 100 / Tickers.tickerPriceInfo[ticker].iloc[-138]['Close']
 
     yearly_pct_change = (Tickers.tickerPriceInfo[ticker].iloc[-1]['Close'] -
-                         Tickers.tickerPriceInfo[ticker].iloc[-252]['Close']) * 100 / Tickers.tickerPriceInfo[ticker].iloc[-1]['Close']
+                         Tickers.tickerPriceInfo[ticker].iloc[-252]['Close']) * 100 / Tickers.tickerPriceInfo[ticker].iloc[-252]['Close']
 
     l = [ticker, Tickers.tickerPriceInfo[ticker].iloc[-1]['Close'],
          weekly_pct_change,
