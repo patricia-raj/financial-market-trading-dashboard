@@ -2,6 +2,21 @@ import streamlit as st
 import Tickers
 import pandas as pd
 
+pd.set_option('display.precision', 2)
+
+def setCellBgColor(cellValue):
+    bgRed = 'background-color: darkorange;'
+    bgGreen = 'background-color: lightgreen;'
+    default = ''
+
+    if type(cellValue) in [float]:
+        if (cellValue > 0):
+            return bgGreen
+        elif (cellValue < 0):
+            return bgRed
+
+    return default
+
 
 def generateDf(columnList, rowList):
     df = pd.DataFrame(rowList, columns=columnList)
@@ -11,10 +26,9 @@ def generateDf(columnList, rowList):
 #
 # Streamlit code:
 #
-st.markdown("# Stock screener ❄️")
+st.markdown("# Stock screener (Nasdaq 100)❄️")
 st.sidebar.markdown("# Screener categories ❄️")
 st.sidebar.markdown("# Display Options ❄️")
-st.markdown("### Testing stocks in the nasdaq 100...")
 
 #
 # Create a checkbox & store it in a list
@@ -35,27 +49,23 @@ maxRowCount = st.sidebar.slider('Max tickers to display',
 columnList = ['Ticker', 'Close', 'Week%', 'Month%', 'YTD%', 'Year%']
 rowList = []
 for ticker in Tickers.nasdaq_100:
-    
-    #weekly_pct_change = Tickers.tickerPriceInfo[ticker].iloc[-1]['Close'].pct_change(periods = 1)
-
     weekly_pct_change = (Tickers.tickerPriceInfo[ticker].iloc[-1]['Close'] -
                           Tickers.tickerPriceInfo[ticker].iloc[-6]['Close']) * 100 / Tickers.tickerPriceInfo[ticker].iloc[-1]['Close']
-    
+
     monthly_pct_change = (Tickers.tickerPriceInfo[ticker].iloc[-1]['Close'] -
                           Tickers.tickerPriceInfo[ticker].iloc[-22]['Close']) * 100 / Tickers.tickerPriceInfo[ticker].iloc[-1]['Close']
 
-    #ytd_pct_change = (Tickers.tickerPriceInfo[ticker].iloc[-1]['Close'] -
-    #                  Tickers.tickerPriceInfo[ticker].iloc[-22]['Close']) * 100 / Tickers.tickerPriceInfo[ticker].iloc[-1]['Close']
+    ytd_pct_change = (Tickers.tickerPriceInfo[ticker].iloc[-1]['Close'] -
+                         Tickers.tickerPriceInfo[ticker].iloc[-138]['Close']) * 100 / Tickers.tickerPriceInfo[ticker].iloc[-1]['Close']
 
-    ytd_pct_change = 0;
-
-    yearly_pct_change = 0;
+    yearly_pct_change = (Tickers.tickerPriceInfo[ticker].iloc[-1]['Close'] -
+                         Tickers.tickerPriceInfo[ticker].iloc[-252]['Close']) * 100 / Tickers.tickerPriceInfo[ticker].iloc[-1]['Close']
 
     l = [ticker, Tickers.tickerPriceInfo[ticker].iloc[-1]['Close'],
-         round(weekly_pct_change, 2),
-         round(monthly_pct_change, 2),
-         round(ytd_pct_change, 2),
-         round(yearly_pct_change,2)]
+         weekly_pct_change,
+         monthly_pct_change,
+         ytd_pct_change,
+         yearly_pct_change]
     rowList.append(l)
 
 df = generateDf(columnList, rowList)
@@ -63,14 +73,11 @@ df = generateDf(columnList, rowList)
 #
 # Check the display options & modify accrodindly
 #
-#for index in range(0, len(chOptions)):
-#    if (0 == chOptions[index]):
-#        df = df.drop(df.columns[index], axis=1)
-
 for key, value in chOptions.items():
     if (0 == value):
         df = df.drop([key], axis = 1)
-        
+
 df = df[0: maxRowCount]
+df = df.style.applymap(setCellBgColor, subset = df.columns[1:])
 
 st.table(df)
