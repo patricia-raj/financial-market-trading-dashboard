@@ -108,17 +108,14 @@ nasdaq_100 = ["AAPL",
 market_caps = ["All", "Mega cap", "Large cap", "Mid cap"]
 
 sectors = ["All",
-           "Energy",
            "Materials",
-           "Industrials",
            "Consumer Dis",
            "Consumer Stap",
            "Health Care",
-           "Financials",
-           "Information Tech",
-           "Telec Services",
-           "Utilities",
-           "Real Estate"]
+           "Industrials",
+           "Tech",
+           "Telecom",
+           "Utilities"]
 
 tickerPriceInfo = {}
 
