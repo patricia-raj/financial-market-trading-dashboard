@@ -107,7 +107,7 @@ moving_avgs = signals_df[['SMA25', 'SMA50']].hvplot(
 # Overlay all four plots in a single visualization
 entry_exit_plot = security_close * moving_avgs * entry * exit
 entry_exit_plot.opts(
-    title="Short-Position Dual Moving Average Trading Algorithm"
+    title="Dual Moving Average Crossover Trading Algorithm"
 )
 
 entry_exit_plot = hv.render(entry_exit_plot)
