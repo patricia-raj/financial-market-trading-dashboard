@@ -4,6 +4,12 @@ import pandas as pd
 
 pd.set_option('display.precision', 2)
 
+def filterTicker(ticker):
+    if (sector != 'All') and (sector != Tickers.tickerInfo[ticker][1]):
+        return False
+
+    return True
+
 def setBold(cellValue):
     return "font-weight: bold"
 
@@ -33,7 +39,10 @@ st.markdown("# Stock screener (Nasdaq 100)❄️")
 st.sidebar.markdown("# Screener categories ❄️")
 
 market_cap = st.sidebar.selectbox("Select the market cap", Tickers.market_caps)
-sector     = st.sidebar.selectbox("Select the sector", Tickers.sectors)
+sector     = st.sidebar.selectbox("Select the sector", Tickers.sectors, index=0)
+
+#print("kash:" + sector)
+#print("kash:" + Tickers.tickerInfo['AAPL'][1])
 
 st.sidebar.markdown("# Display Options ❄️")
 
@@ -48,7 +57,7 @@ chOptions = {"Week%" : chWeek, "Month%" : chMonth,
              "YTD%" : chYtd, "Year%" : chYear}
 
 maxRowCount = st.sidebar.slider('Max tickers to display',
-                                min_value = 1, max_value = 102, value = 25)
+                                min_value = 1, max_value = 101, value = 25)
 
 #
 # Walk through the nasdaq 100 & create an entry for each:
@@ -56,6 +65,15 @@ maxRowCount = st.sidebar.slider('Max tickers to display',
 columnList = ['Ticker', 'Close', 'Week%', 'Month%', 'YTD%', 'Year%']
 rowList = []
 for ticker in Tickers.nasdaq_100:
+    
+    #
+    # If the ticker needs to be filtered out, move on...
+    #
+    if (filterTicker(ticker) == False):
+        continue
+
+    #print("kash:info: " + Tickers.tickerInfo[ticker])
+
     weekly_pct_change = (Tickers.tickerPriceInfo[ticker].iloc[-1]['Close'] -
                           Tickers.tickerPriceInfo[ticker].iloc[-6]['Close']) * 100 / Tickers.tickerPriceInfo[ticker].iloc[-6]['Close']
 

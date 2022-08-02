@@ -119,7 +119,16 @@ sectors = ["All",
 
 tickerPriceInfo = {}
 
+tickerInfo = {}
+
 def readAllPriceCsv():
     for ticker in nasdaq_100:
         df = pd.read_csv('Resources/NASDQ-100-Tickers/' + ticker + '.csv')
         tickerPriceInfo[ticker] = df
+
+def readTickerInfo():
+    df = pd.read_csv('Resources/NASDQ-100-Info.csv')
+    df = df.set_index('Ticker')
+    df['Sector'] = df['Sector'].astype('string') 
+    for ticker in nasdaq_100:
+        tickerInfo[ticker] = df.loc[ticker].tolist()
