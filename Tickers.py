@@ -105,7 +105,7 @@ nasdaq_100 = ["AAPL",
               "OKTA",
               "DOCU"]
 
-market_caps = ["All", "Mega cap", "Large cap", "Mid cap"]
+market_caps = ["All", "Mega", "Large", "Mid"]
 
 sectors = ["All",
            "Materials",
