@@ -4,8 +4,23 @@ import pandas as pd
 
 pd.set_option('display.precision', 2)
 
+def findMarketCap(ticker):
+    marketCapBillion = Tickers.tickerInfo[ticker][0] / 1000.0
+    if (marketCapBillion > 200):
+        return "Mega"
+    elif (marketCapBillion > 10):
+        return "Large"
+    else:
+        return "Mid"
+
+
 def filterTicker(ticker):
+    market_cap_ticker = findMarketCap(ticker)
+
     if (sector != 'All') and (sector != Tickers.tickerInfo[ticker][1]):
+        return False
+    
+    if (market_cap != 'All') and (market_cap != market_cap_ticker):
         return False
 
     return True
