@@ -10,7 +10,6 @@ from pathlib import Path
 import numpy as np
 import datetime as dt
 import streamlit as st
-import holoviews as hv
 #from dotenv import load_dotenv
 #import nltk as nltk
 #nltk.download('vader_lexicon')
@@ -226,75 +225,177 @@ Tech_sector.head()
 
 MC_data = pd.read_csv('Resources/Market Caps.csv')
 
-MC_data = MC_data.set_index(MC_data['Ticker'], inplace=True)
-MC_data = MC_data.drop(columns=['Ticker',"Year"], inplace=True)
+MC_data.set_index(MC_data['Ticker'], inplace=True)
+MC_data.drop(columns=['Ticker',"Year"], inplace=True)
 
-#MC_data = MC_data.plot.bar(figsize = (25,10))
+MC_data.plot.bar(figsize = (25,10))
 
-st.bar_chart(MC_data)
+
+# In[ ]:
+
+
+st.write('''
+    # "Rolling Mean and Volatility of 3 Selected stocks per industry"
+    ''')
+
+
+# In[ ]:
+
+
+st.write("Utilities")
 
 
 # In[6]:
 
 
-#Utilities_sector.rolling(5).mean().plot()
+st.line_chart(Utilities_sector.rolling(5).mean())
+
+
+# In[ ]:
+
+
+st.line_chart(Utilities_sector.rolling(window=4).std())
+
+
+# In[ ]:
+
+
+st.write("Basic Materials")
 
 
 # In[7]:
 
 
-#BM_sector.rolling(5).mean().plot()
+st.line_chart(BM_sector.rolling(5).mean())
+
+
+# In[ ]:
+
+
+st.line_chart(BM_sector.rolling(window=4).std())
+
+
+# In[ ]:
+
+
+st.write("Telecommunications")
 
 
 # In[8]:
 
 
-#Tele_sector.rolling(5).mean().plot()
+st.line_chart(Tele_sector.rolling(5).mean())
+
+
+# In[ ]:
+
+
+st.line_chart(Tele_sector.rolling(window=4).std())
+
+
+# In[ ]:
+
+
+st.write("Consumer Discrestion")
 
 
 # In[9]:
 
 
-#ConsumerDisc_sector.rolling(5).mean().plot()
+st.line_chart(ConsumerDisc_sector.rolling(5).mean())
+
+
+# In[ ]:
+
+
+st.line_chart(ConsumerDisc_sector.rolling(window=4).std())
+
+
+# In[ ]:
+
+
+st.write("Consumer Staples")
 
 
 # In[10]:
 
 
-#ConsumerStp_sector.rolling(5).mean().plot()
+st.line_chart(ConsumerStp_sector.rolling(5).mean())
+
+
+# In[ ]:
+
+
+st.line_chart(ConsumerStp_sector.rolling(window=4).std())
+
+
+# In[ ]:
+
+
+st.write("Industials")
 
 
 # In[11]:
 
 
-#Industrials_sector.rolling(5).mean().plot()
+st.line_chart(Industrials_sector.rolling(5).mean())
+
+
+# In[ ]:
+
+
+st.line_chart(Industrials_sector.rolling(window=4).std())
+
+
+# In[ ]:
+
+
+st.write("Health")
 
 
 # In[12]:
 
 
-#Health_sector.rolling(5).mean().plot()
+st.line_chart(Health_sector.rolling(5).mean())
+
+
+# In[ ]:
+
+
+st.line_chart(Health_sector.rolling(window=4).std())
+
+
+# In[ ]:
+
+
+st.write("Technology")
 
 
 # In[13]:
 
 
-#Tech_sector.rolling(5).mean().plot()
+st.line_chart(Tech_sector.rolling(5).mean())
+
+
+# In[ ]:
+
+
+st.line_chart(Tech_sector.rolling(window=4).std())
 
 
 # In[14]:
 
 
-for sector_rolling in (Utilities_sector,
-                          BM_sector,
-                          Tele_sector,
-                          Health_sector,
-                          Tech_sector,
-                          ConsumerDisc_sector,
-                          ConsumerStp_sector,
-                          Industrials_sector):
-    sector_rolling.rolling(5).mean().plot()
-sector_rolling.plot
+#for sector_rolling in (Utilities_sector,
+#                          BM_sector,
+#                          Tele_sector,
+#                          Health_sector,
+#                          Tech_sector,
+#                          ConsumerDisc_sector,
+#                          ConsumerStp_sector,
+#                          Industrials_sector):
+#    sector_rolling.rolling(5).mean().plot()
+#sector_rolling.plot
 
 
 # In[15]:
@@ -348,17 +449,17 @@ Industrials_sector['mean'] = Industrials_sector.mean(axis=1).plot()
 # In[23]:
 
 
-for sector_volatility in (Utilities_sector,
-                          BM_sector,
-                          Tele_sector,
-                          Health_sector,
-                          Tech_sector,
-                          ConsumerDisc_sector,
-                          ConsumerStp_sector,
-                          Industrials_sector):
-    sector_volatility.rolling(window=4).std().plot()
+#for sector_volatility in (Utilities_sector,
+#                          BM_sector,
+#                          Tele_sector,
+#                          Health_sector,
+#                          Tech_sector,
+#                          ConsumerDisc_sector,
+#                          ConsumerStp_sector,
+#                          Industrials_sector):
+#    sector_volatility.rolling(window=4).std().plot()
     
-sector_volatility.plot
+#sector_volatility.plot
 
 
 # In[24]:
@@ -410,5 +511,4 @@ sector_volatility.plot
 
 
 # In[32]:
-
 
