@@ -38,13 +38,13 @@ if len (dropdown) > 0:
     st.header('Earnings of {}'.format(dropdown))
     stockearn = stock.earnings
     st.write(stockearn)
-    st.header('Divident Information of {}'.format(dropdown))
-    stockdiv = stock.dividends
-    st.write(stockdiv)
     st.header('Recommendations of {}'.format(dropdown))
     stockreco = stock.recommendations
     st.write(stockreco)
     st.header('Major Holders of {}'.format(dropdown))
     stockholders = stock.major_holders
     st.write(stockholders)
+    st.header('Divident Information of {}'.format(dropdown))
+    stockdiv = stock.dividends
+    st.write(stockdiv)
     

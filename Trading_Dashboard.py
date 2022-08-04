@@ -13,7 +13,7 @@ Tickers.readTickerInfo()
 def run():
     st.set_page_config(
         page_title="Trading Dashboard",
-        page_icon="👋",
+        page_icon="📈",
         layout='wide'
     )
 
@@ -24,7 +24,7 @@ def run():
     st.markdown(
         """
         ### Trading Dashboard Description
-
+        - Trading streamlit application with multiple pages of what might be useful to a trader/investor.
         ### Contributors
         - Kamal
         - John
