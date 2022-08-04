@@ -5,6 +5,7 @@ import Tickers
 # Call all the init functions
 #
 Tickers.readAllPriceCsv()
+Tickers.readTickerInfo()
 
 ##st.markdown("# Trading Dashboard")
 ##st.sidebar.markdown("# Trading Dashboard")
