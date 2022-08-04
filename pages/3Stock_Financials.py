@@ -2,10 +2,9 @@ import streamlit as st
 import yfinance as yf
 import pandas as pd
 import Tickers 
-import altair as alt
 
 st.set_page_config(layout='wide')
-st.title('Real-Time - Stock Information' )
+st.title('Real-Time - Stock Financial Information' )
 tickers = Tickers.nasdaq_100
 
 
@@ -14,15 +13,6 @@ if len (dropdown) > 0:
     stock = yf.Ticker(dropdown)
     
     # Display an interactive table
-    
-    #st.header('Stock Information of {}'.format(dropdown))
-    #st.write(stock.info.keys())
-    #stockinfo_df = pd.DataFrame(stock.info)
-    #st.table(stockinfo_df)
-    #stock_info = stockinfo_df[['totalCash', 'totalDebt','totalRevenue']
-    #st.dataframe(stock_info)
-    #stockcalendar = stock.calendar
-    #st.write(stockcalendar)
     stockearn = stock.earnings
     earn_df = pd.DataFrame(stockearn)
     with st.container():
@@ -59,7 +49,10 @@ if len (dropdown) > 0:
     
     st.header('Major Holders - {}'.format(dropdown))
     stockholders = stock.major_holders
-    st.dataframe(stockholders)
+    holders_df = pd.DataFrame(stockholders)
+    holders_df.rename({0: 'Percent', 1: 'Share Holders'},axis=1, inplace=True)
+    holders_df = holders_df[['Share Holders','Percent']]
+    st.dataframe(holders_df)
     
     st.header('Divident Information - {}'.format(dropdown))
     stockdiv = stock.dividends
