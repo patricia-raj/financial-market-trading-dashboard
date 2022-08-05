@@ -38,7 +38,7 @@ if len (dropdown) > 0:
     fin_df = pd.DataFrame(stockfin)
     fin_df.dropna(inplace=True)
     fin_df = fin_df.transpose()
-    fin_df.index = pd.to_datetime(fin_df.index, format = '%Y-%m/%d')
+    fin_df.index = pd.to_datetime(fin_df.index, format = '%Y-%m-%d')
     fin_df.index = fin_df.index.strftime('%Y')
     st.dataframe(fin_df)
     
