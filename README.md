@@ -85,3 +85,6 @@ conda install -c conda-forge bokeh==2.4.3 -y
 conda install -c conda-forge panel -y
 
 ```
+
+## Project Presentation
+[Project3.pptx](https://github.com/patricia-raj/financial-market-trading-dashboard/files/9275495/Project3.pptx)
