@@ -1,23 +1,46 @@
 # Financial Market Trading Dashboard
 
-Create a streamlit application with multiple pages of what might be useful to a trader / investor.
+Create a streamlit application with multiple pages containing key information necessary to a trader / investor to make informed decision for investment.
 
-Currently, we plan to have the following:
+## Details
 
-- A index & the sector based chart across different timelines to get a macro view.
+1) A index & the sector based chart across different timelines to get a macro view.
+![](Images/Indices.mp4)
 
-- A stock screener like in yahoo finance (we want to limit the pool to nasdaq 100 for simplicity).
+![](Images/Sector.mp4)
 
-- An algo back testing feature that can run on the above pool of stocks with customizable dates.
+2) A stock screener like in yahoo finance (we want to limit the pool to nasdaq 100 for simplicity).
+![](Images/Screener.mp4)
+
+
+3) Real time deeper lens to analyse stock Financials and returns.
+![](Images/Stock_Financials.mp4)
+![](Images/Stock_Price.mp4)
+
+
+4) An algo back testing feature that can run on the above pool of stocks with customizable dates.
+
+![](Images/Algo_Trading.png)
+
+## Summary
+- We pushed our ability to do real-time integration with Yfinance to provide traders closer real-time experience.
+
+- Lot of challenges in understanding YFinance API in short time and necessiated many pre-processing steps to handle unavailability of data.
+
+- Near real time comparison US region major indicies and across other regions was profound for predictions.
+
+- With less exposure building streamlit application, we are happy to integrate the stock key information and visualization using interactive user experience.
+
+- As icing on the top, Dual moving average crossover trading Algorithm strategy was implemented to visualize profit and loss along with ROI.
+
 
 ## Collaborators
 
-|  | 
-| ----------- | 
-| * **Alyssa Younger** | 
-| * **John Ryan** | 
-| * **Kamalnivas Balasubramanian** | 
-| * **Patricia Rajamanickam** | 
+* **Alyssa Younger** 
+* **John Ryan** 
+* **Kamalnivas Balasubramanian** 
+* **Patricia Rajamanickam** 
+
 
 ## Installation Guide
 - #### Must have Anaconda base ####

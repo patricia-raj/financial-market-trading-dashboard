@@ -22,13 +22,14 @@ region_idx= { 'US & Canada' : ['^GSPC', '^DJI', '^IXIC', '^RUT','^GSPTSE'],
              'Europe' : ['^FTSE', '^GDAXI', '^FCHI', '^STOXX50E','^N100', '^BFX']
             }
 
-
+## Fetching World indices information from Yahoo finance page and using pandas read_html() function the information are stored to a dataframe
 url = 'https://finance.yahoo.com/world-indices'
 cookies = {'euConsentId': str(uuid.uuid4())}
 html = requests.get(url, cookies=cookies).content
 majorStockIdx = pd.read_html(html)[0]
 majorStockIdx.drop(['Intraday High/Low', '52 Week Range', 'Day Chart'], axis=1, inplace=True)
 
+## Obtain the historical until today's ticker information from Yahoo Finance
 stock_list = []
 for stock in majorStockIdx.Symbol: 
     ticker_data = yf.Ticker(stock)
@@ -36,24 +37,30 @@ for stock in majorStockIdx.Symbol:
     ticker_df['ticker'] = stock 
     stock_list.append(ticker_df)
 
+    
+## Collate ticker list
 master_stock_idx = pd.concat(stock_list, axis = 0)
 
+
+## Obtain the Region of the indicies 
 def getRegionTickerKey(ticker):
     for k in region_idx.keys():
         if ticker in region_idx[k]:
             return k
 master_stock_idx['Region']= master_stock_idx.ticker.apply(lambda x: getRegionTickerKey(x))
 
-master_stock_idx.drop('Adj Close', axis=1, inplace=True)
+#master_stock_idx.drop('Adj Close', axis=1, inplace=True)
 master_stock_idx = master_stock_idx[master_stock_idx['Region'].notnull()]
 
-
+## Calculate Returns for the indicies 
 master_stock_idx['Returns'] = ((1 + master_stock_idx['Close'].pct_change()).cumprod() - 1)
 master_stock_idx['Returns'] = master_stock_idx.Returns.fillna(method='bfill')
 
 returns_df = master_stock_idx.groupby(['Date', 'ticker'])['Returns'].first().unstack()
 returns_df = returns_df.fillna(method='bfill')
 
+
+## Focussed USA regions major players and visualize the growth over years
 usa_df = master_stock_idx.loc[master_stock_idx.ticker.isin(['^GSPC','^IXIC','^DJI','^RUT'])][['ticker','Region','Returns']]
 usa_df = usa_df.groupby(['Date', 'ticker'])['Returns'].first().unstack()
 
@@ -87,6 +94,9 @@ with st.container():
         st.line_chart(usa_df['^RUT'], width=1000, height=500, use_container_width=True)
     
 
+
+## Across regions major players and visualize the growth over years.
+    
 st.header("World Major Stock Indices")
 st.dataframe(majorStockIdx)
 

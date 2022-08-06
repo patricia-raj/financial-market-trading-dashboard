@@ -7,8 +7,10 @@ st.set_page_config(layout='wide')
 st.title('Real-Time - Stock Financial Information' )
 tickers = Tickers.nasdaq_100
 
-
+## User Interaction
 dropdown = st.selectbox('Pick vour assets', tickers)
+
+
 if len (dropdown) > 0:
     stock = yf.Ticker(dropdown)
     
@@ -17,14 +19,15 @@ if len (dropdown) > 0:
     earn_df = pd.DataFrame(stockearn)
     with st.container():
         st.header('Earnings of {}'.format(dropdown))
-        # You can call any Streamlit command, including custom components:
-        col1, col2 = st.columns(2)
+        ## Split into two columns to visualize earnings and Revenues along view the raw information
+        earn_chart, earn_data = st.columns(2)
 
-        with col1:
+        with earn_chart:
             st.bar_chart(earn_df,width=1000, height=500, use_container_width=True)
-        with col2:
+        with earn_data:
             st.write(stockearn)
     
+    ## Getting Daily High and Low along with Fity two weeks high and low.
     st.header('Stock Price High and Low - {}'.format(dropdown))
     price = [stock.info['dayHigh'], stock.info['dayLow'], stock.info['fiftyTwoWeekHigh'], stock.info['fiftyTwoWeekLow']]
     index = ["Day High", "Day Low", "Year High", "Year Low"]
@@ -33,6 +36,7 @@ if len (dropdown) > 0:
     phl = phl.astype(str)
     st.dataframe(phl)
     
+    ## Obtain Financial information for a stock.
     st.header('Financials - {}'.format(dropdown))
     stockfin = stock.financials
     fin_df = pd.DataFrame(stockfin)
@@ -42,11 +46,12 @@ if len (dropdown) > 0:
     fin_df.index = fin_df.index.strftime('%Y')
     st.dataframe(fin_df)
     
-    
+    ## Fetch Recommendation information for a stock.
     st.header('Recommendations - {}'.format(dropdown))
     stockreco = stock.recommendations
     st.dataframe(stockreco)
     
+    ## Get insight on Major share holders.
     st.header('Major Holders - {}'.format(dropdown))
     stockholders = stock.major_holders
     holders_df = pd.DataFrame(stockholders)
@@ -54,6 +59,8 @@ if len (dropdown) > 0:
     holders_df = holders_df[['Share Holders','Percent']]
     st.dataframe(holders_df)
     
+    
+    ## Analysis Dvident information.
     st.header('Divident Information - {}'.format(dropdown))
     stockdiv = stock.dividends
     st.dataframe(stockdiv)
